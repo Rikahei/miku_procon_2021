@@ -1,0 +1,22 @@
+{
+  "name": "procon_miku_2021",
+  "private": true,
+  "version": "1.0.0",
+  "description": "5p js",
+  "main": "index.js",
+  "scripts": {
+    "dev": "parcel src/index.html --out-dir dev",
+    "build": "parcel build src/index.html --public-url ./ --out-dir docs --no-source-maps",
+    "clean": "del-cli .cache dev docs"
+  },
+  "dependencies": {
+    "axios": "^0.21.4",
+    "p5": "^1.4.0",
+    "textalive-app-api": "^0.2.1"
+  },
+  "devDependencies": {
+    "del-cli": "^3.0.1",
+    "parcel-bundler": "^1.12.4",
+    "parcel-plugin-clean-dist": "0.0.6"
+  }
+}
