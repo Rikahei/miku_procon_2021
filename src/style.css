@@ -1,3 +1,7 @@
+body {
+  cursor: pointer;
+}
+
 #media {
   position: fixed;
   left: 35%;
@@ -11,6 +15,7 @@
 #meta {
   padding-left: 10px;
 }
+
 #meta span {
   font-weight: normal;
 }

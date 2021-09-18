@@ -2,13 +2,14 @@ import { Player } from "textalive-app-api";
 import p5 from "p5";
 import { Ball } from './ball.js';
 
+let vaIndex = 4;
 const player = new Player({
   app: {
     appAuthor: "TextAlive",
     appName: "p5.js example",
   },
     mediaElement: document.querySelector("#media"),
-    // valenceArousalEnabled: true,
+    valenceArousalEnabled: true,
 });
 player.addListener({
   onAppReady(app) {
@@ -30,7 +31,10 @@ player.addListener({
   },
   onVideoReady: () => {
     console.log("player.onVideoReady");
-    player.volume = 50;
+    player.volume = 70;
+    let va = player.getMedianValenceArousal();
+    vaIndex = Math.round((va.v + va.a) * 10);
+    console.log(vaIndex);
   },
 
   onPlay: () => {
@@ -50,20 +54,23 @@ player.addListener({
   }
 })
 
-var balls = [];
-var ballCnt = 0;
+let balls = [];
+let ballCnt = 0;
 let injectX = 20;
-const width = window.innerWidth-20;
-const height = window.innerHeight-20;
-let ballsMax = width < 768 ? 50 : 100;
 let soundFile;
 let clickedArr = [];
 let chordIndex = 0;
 
 let position = 0;
 
+let playerScore = 0;
+
 const sketch = (p5) => {
+  let width = p5.windowWidth - 20;
+  let height = p5.windowHeight - 20;
+  let ballsMax = width < 768 ? 50 : 100;
   let lastIndex = 0;
+
   p5.preload = () => {
     soundFile = document.querySelector('#sound');
   }
@@ -77,11 +84,19 @@ const sketch = (p5) => {
     }
     p5.clear();
     p5.frameRate(60);
+
+    p5.pop();
+    p5.noStroke();
     p5.fill('#222222');
+    // The Play/Pause button
     p5.triangle(10, 60, 10, 10, 60, 35);
     if(balls.length > ballsMax){
       balls.splice(0, ballsMax*0.15);
     }
+    p5.textSize(20);
+    p5.text('Score: ' + playerScore, width - 150, 20);
+    p5.push();
+
     position = player.timer.position;
     let forePosition = position + 2000;
     p5.background('rgba(255,255,255, 0.5)');
@@ -111,13 +126,15 @@ const sketch = (p5) => {
       balls.forEach(ball => {
         ball.collide(p5, balls.length);
         ball.move(width, height);
-        ball.display(p5, position);
+        ball.display(p5, position, vaIndex);
       });
     }
     if(clickedArr.length > 0){
+      p5.pop();
       p5.strokeWeight(4);
       p5.stroke(51);
       p5.fill(255,255,255, 0.2);
+      p5.push();
       clickedArr.forEach(ball => {
         let effectTime = position - ball.char.startTime;
         p5.ellipse(ball.x, ball.y, 90 + effectTime * 0.2, 90 + effectTime * 0.2);
@@ -152,12 +169,15 @@ const sketch = (p5) => {
         if(clickTiming <= 150){
           spliceTiming = spliceJust;
           console.log('Just!', clickTiming);
+          playerScore += 50;
         }else if(clickTiming <= 350){
           spliceTiming = spliceNice;
           console.log('Nice!', clickTiming);
+          playerScore += 30;
         }else{
           spliceTiming = spliceGood;
           console.log('Good!', clickTiming);
+          playerScore += 10;
         }
         clickedArr.push(ball);
         balls.splice(balls.indexOf(ball), 1);
@@ -188,6 +208,11 @@ const sketch = (p5) => {
           player.requestPlay();
         }
     }
+  }
+  p5.windowResized = () => {
+    width = p5.windowWidth - 20;
+    height = p5.windowHeight - 20;
+    p5.resizeCanvas(width, height);
   }
 }
 
