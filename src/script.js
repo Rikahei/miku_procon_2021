@@ -3,6 +3,7 @@ import p5 from "p5";
 import { Ball } from './ball.js';
 
 let vaIndex = 4;
+let gameStart = false;
 const player = new Player({
   app: {
     appAuthor: "TextAlive",
@@ -54,6 +55,7 @@ player.addListener({
   }
 })
 
+let demoforesee = 100;
 let balls = [];
 let ballCnt = 0;
 let injectX = 20;
@@ -80,16 +82,46 @@ const sketch = (p5) => {
   }
   p5.draw = () => {
     if (!player || !player.video) {
+      p5.textSize(50);
+      p5.text('Loading...', width/2 - 150, height/2);  
       return;
     }
-    p5.clear();
+    //Set frameRate and transparent
     p5.frameRate(60);
+    p5.clear();
+    p5.background('rgba(255,255,255, 0.5)');
+    if(!gameStart && player.video){
+      demoforesee--;
+      p5.stroke(1);
+      p5.strokeWeight(1);
+      p5.fill('rgba(127, 147, 105, 0.5)');
+      p5.ellipse(width/2, height/2, 120+demoforesee, 120+demoforesee);
+      if(demoforesee < 1){
+        demoforesee = 100;
+      }
+      p5.noStroke();
+      p5.fill('rgba(53, 203, 193, 1)');
+      p5.ellipse(width/2, height/2, 120, 120);
+      p5.fill(0);
+      let clickText = 26;
+      if(demoforesee <= 12){
+        clickText = 38
+      }
+      p5.textSize(clickText);
+      p5.text('Click!', width/2 - clickText - 5, height/2 + clickText/3)
+    }
 
     p5.pop();
+    // The Play/Pause button
     p5.noStroke();
     p5.fill('#222222');
-    // The Play/Pause button
-    p5.triangle(10, 60, 10, 10, 60, 35);
+    if(!player.isPlaying){
+      p5.triangle(10, 60, 10, 10, 60, 35);
+    }else{
+      p5.rect(10, 10, 10, 40);
+      p5.rect(30, 10, 10, 40);
+    }
+    // Max balls
     if(balls.length > ballsMax){
       balls.splice(0, ballsMax*0.15);
     }
@@ -99,7 +131,6 @@ const sketch = (p5) => {
 
     position = player.timer.position;
     let forePosition = position + 2000;
-    p5.background('rgba(255,255,255, 0.5)');
     let char = player.video.findChar(forePosition, { loose: true });
     let phrase = player.video.findPhrase(forePosition, { loose: true });
     // let beat = player.findBeat(forePosition);
@@ -197,6 +228,7 @@ const sketch = (p5) => {
       }
     })
     // Play button
+    // TODO: mobile view have issue
     if(p5.mouseX > 10 &&
       p5.mouseX < 60 &&
       p5.mouseY > 10 &&
@@ -207,6 +239,11 @@ const sketch = (p5) => {
         }else{
           player.requestPlay();
         }
+    }
+    // Start the game
+    if(!gameStart){
+      player.requestPlay();
+      gameStart = true;
     }
   }
   p5.windowResized = () => {
