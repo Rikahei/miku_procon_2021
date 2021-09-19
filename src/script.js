@@ -2,6 +2,7 @@ import { Player } from "textalive-app-api";
 import p5 from "p5";
 import { Ball } from './ball.js';
 
+let isVideoLoaded = false;
 let vaIndex = 4;
 let gameStart = false;
 const player = new Player({
@@ -38,6 +39,11 @@ player.addListener({
     console.log(vaIndex);
   },
 
+  onTimerReady: () => {
+    isVideoLoaded = true;
+    console.log("player.onTimerReady");
+  },
+
   onPlay: () => {
     console.log("player.onPlay");
   },
@@ -55,7 +61,7 @@ player.addListener({
   }
 })
 
-let demoforesee = 100;
+let demoforesee = 120;
 let balls = [];
 let ballCnt = 0;
 let injectX = 20;
@@ -65,6 +71,9 @@ let chordIndex = 0;
 
 let position = 0;
 
+const spliceGood = 120;
+const spliceNice = 180;
+const spliceJust = 320;
 let playerScore = 0;
 
 const sketch = (p5) => {
@@ -81,7 +90,7 @@ const sketch = (p5) => {
     p5.createCanvas(width, height);
   }
   p5.draw = () => {
-    if (!player || !player.video) {
+    if (!player || !player.video || !isVideoLoaded) {
       p5.textSize(50);
       p5.text('Loading...', width/2 - 150, height/2);  
       return;
@@ -90,28 +99,27 @@ const sketch = (p5) => {
     p5.frameRate(60);
     p5.clear();
     p5.background('rgba(255,255,255, 0.5)');
-    if(!gameStart && player.video){
-      demoforesee--;
+    if(!gameStart && player.video && isVideoLoaded){
+      demoforesee -= 2;
       p5.stroke(1);
       p5.strokeWeight(1);
       p5.fill('rgba(127, 147, 105, 0.5)');
       p5.ellipse(width/2, height/2, 120+demoforesee, 120+demoforesee);
-      if(demoforesee < 1){
-        demoforesee = 100;
+      if(demoforesee < -10){
+        demoforesee = 120;
       }
       p5.noStroke();
       p5.fill('rgba(53, 203, 193, 1)');
       p5.ellipse(width/2, height/2, 120, 120);
       p5.fill(0);
       let clickText = 26;
-      if(demoforesee <= 12){
+      if(demoforesee < 20){
         clickText = 38
       }
       p5.textSize(clickText);
       p5.text('Click!', width/2 - clickText - 5, height/2 + clickText/3)
     }
 
-    p5.pop();
     // The Play/Pause button
     p5.noStroke();
     p5.fill('#222222');
@@ -127,7 +135,6 @@ const sketch = (p5) => {
     }
     p5.textSize(20);
     p5.text('Score: ' + playerScore, width - 150, 20);
-    p5.push();
 
     position = player.timer.position;
     let forePosition = position + 2000;
@@ -161,29 +168,13 @@ const sketch = (p5) => {
       });
     }
     if(clickedArr.length > 0){
-      p5.pop();
-      p5.strokeWeight(4);
-      p5.stroke(51);
-      p5.fill(255,255,255, 0.2);
-      p5.push();
-      clickedArr.forEach(ball => {
-        let effectTime = position - ball.char.startTime;
-        p5.ellipse(ball.x, ball.y, 90 + effectTime * 0.2, 90 + effectTime * 0.2);
-        p5.ellipse(ball.x, ball.y, 50 + effectTime * 0.21, 50 + effectTime * 0.21);
-        p5.ellipse(ball.x, ball.y, 10 + effectTime * 0.22, 10 + effectTime * 0.22);
-        if(90 + effectTime * 0.2 > 250){
-          clickedArr.splice(clickedArr.indexOf(ball), 1);
-        }
-      });
+      clickAnimation(p5, clickedArr, position);
     }
   }
   p5.mousePressed = () => {
     // May change in mobile view
-    const spliceGood = 90;
-    const spliceNice = 120;
-    const spliceJust = 160;
-    let nearBalls = [];
     let spliceTiming;
+    let nearBalls = [];
     balls.forEach((ball)=>{
       if (
         p5.mouseX > ball.x - ball.diameter/2 &&
@@ -191,7 +182,7 @@ const sketch = (p5) => {
         p5.mouseY > ball.y - ball.diameter/2 &&
         p5.mouseY < ball.y + ball.diameter/2 &&
         ball.chord == 1 &&
-        ball.char.startTime - 800 <= position && ball.char.endTime + 500 >= position 
+        ball.char.startTime - 800 <= position && ball.char.endTime + 300 >= position 
       ) {
         soundFile.play();
         ball.clicked = true;
@@ -201,7 +192,7 @@ const sketch = (p5) => {
           spliceTiming = spliceJust;
           console.log('Just!', clickTiming);
           playerScore += 50;
-        }else if(clickTiming <= 350){
+        }else if(clickTiming <= 300){
           spliceTiming = spliceNice;
           console.log('Nice!', clickTiming);
           playerScore += 30;
@@ -210,12 +201,13 @@ const sketch = (p5) => {
           console.log('Good!', clickTiming);
           playerScore += 10;
         }
+        ball.spliceTiming = spliceTiming;
         clickedArr.push(ball);
         balls.splice(balls.indexOf(ball), 1);
         for(let bi = 0; bi < ball.others.length; bi++){
           if(
-            Math.abs(ball.others[bi].x - ball.x) < 45+spliceJust/2 &&
-            Math.abs(ball.others[bi].y - ball.y) < 45+spliceJust/2 &&
+            Math.abs(ball.others[bi].x - ball.x) < 45+spliceTiming/2 &&
+            Math.abs(ball.others[bi].y - ball.y) < 45+spliceTiming/2 &&
             (ball.others[bi].chord == 0 || position - ball.others[bi].char.endTime > 0)
           ){
             nearBalls.push(ball.others[bi]);
@@ -251,6 +243,25 @@ const sketch = (p5) => {
     height = p5.windowHeight - 20;
     p5.resizeCanvas(width, height);
   }
+}
+
+function clickAnimation(p5, clickedArr, position){
+  p5.strokeWeight(4);
+  p5.stroke(51);
+  p5.fill(255,255,255, 0.2);
+  clickedArr.forEach(ball => {
+    let effectTime = position - ball.char.startTime;
+    if(ball.spliceTiming >= spliceJust){
+      p5.ellipse(ball.x, ball.y, 10 + effectTime * 0.2, 10 + effectTime * 0.2);
+    }
+    if(ball.spliceTiming >= spliceNice){
+      p5.ellipse(ball.x, ball.y, 50 + effectTime * 0.2, 50 + effectTime * 0.2);
+    }
+    p5.ellipse(ball.x, ball.y, 90 + effectTime * 0.2, 90 + effectTime * 0.2);
+    if(90 + effectTime * 0.2 > ball.spliceTiming){
+      clickedArr.splice(clickedArr.indexOf(ball), 1);
+    }
+  });
 }
 
 const p5sketch = new p5(sketch);

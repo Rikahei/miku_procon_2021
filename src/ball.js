@@ -11,14 +11,14 @@ const colors = {
   },
   default:{
     foresee:'rgba(127, 147, 105, 0.5)',
-    click: 'rgba(53, 203, 193, 1)',
+    click: 'rgba(53, 203, 193, 0.7)',
     siging: 'rgba(53, 174, 201, 0.7)',
     phrase: 'rgba(250, 205, 75, 0.7)',
     ball: 'rgba(255, 212, 213, 0.7)'
   },
   fast:{
     foresee:'rgba(127, 152, 190, 0.5)',
-    click: 'rgba(219, 60, 124, 1)',
+    click: 'rgba(219, 60, 124, 0.7)',
     siging: 'rgba(140, 132, 213, 0.7)',
     phrase: 'rgba(67, 198, 193, 0.7)',
     ball: 'rgba(253, 243, 246, 0.7)'
@@ -92,13 +92,13 @@ export class Ball {
     let circleColor;
     let textColor = p5.color(150, 150, 150);
     let textSize = 16;
-    let foresee = (position - this.char.startTime) < 0 ? (position - this.char.startTime - 800)*0.2 : 0;
-    if(this.char.startTime - 800 <= position && this.char.endTime +95 >= position
+    // TODO: find out why - 900 is work
+    let foresee = (position - this.char.startTime) < 0 ? (position - this.char.startTime - 900)*0.2 : 0;
+    if(this.char.startTime - 800 <= position && this.char.endTime +100 >= position
       && this.chord == 1){
       p5.strokeWeight(1);
       p5.stroke(51);
       p5.fill(colorTone.foresee);
-      // TODO: fix foresee ellipse late over lap
       p5.ellipse(this.x, this.y, this.diameter+foresee, this.diameter+foresee);
       circleColor = p5.color(colorTone.click);
       textColor = p5.color(0, 0 ,0);
