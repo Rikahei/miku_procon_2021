@@ -1,6 +1,6 @@
-const spring = 0.003;
+const spring = 0.002;
 const gravity = 0.02;
-const friction = -0.2;
+const friction = -0.3;
 const colors = {
   slow:{
     foresee:'rgba(249, 225, 237, 0.7)',
@@ -38,7 +38,7 @@ export class Ball {
     this.startTime = phrase.startTime;
     this.endTime = phrase.endTime;
     // '' because clear up function
-    this.pos = char != '' ? char.parent.pos : 'NA';
+    this.pos = char.parent.pos;
     this.chord = chord;
     this.clicked = false;
   }
@@ -66,6 +66,18 @@ export class Ball {
     this.x += this.vx;
     this.y += this.vy;
     let rad = this.diameter / 2;
+    // bounce back when hit the pause button
+    if(this.x - rad < 60 && this.y - rad < 60){
+      if(this.x - rad < 60 && this.y - rad < 30){
+        this.x = rad + 60
+        this.vx *= friction;  
+      }
+      if(this.y - rad < 60 && this.x - rad < 30){
+        this.y = rad + 60
+        this.vy *= friction;
+      }
+    }
+    // bounce back when hit the walls
     if(this.x + rad > width || 
       this.x - rad < 0
     ){
@@ -82,6 +94,7 @@ export class Ball {
 
   display(p5, position, vaIndex) {
     let colorTone;
+    let ballSizeIndex = 0;
     if(vaIndex == 4){
       colorTone = colors.default;
     }else if(vaIndex < 4){
@@ -94,7 +107,7 @@ export class Ball {
     let textSize = 16;
     // TODO: find out why - 900 is work
     let foresee = (position - this.char.startTime) < 0 ? (position - this.char.startTime - 900)*0.2 : 0;
-    if(this.char.startTime - 800 <= position && this.char.endTime +100 >= position
+    if(this.char.startTime - 1000 <= position && this.char.endTime +100 >= position
       && this.chord == 1){
       p5.strokeWeight(1);
       p5.stroke(51);
@@ -107,10 +120,14 @@ export class Ball {
       circleColor = p5.color(colorTone.siging);
       textColor = p5.color(0);
       textSize = 26;
+      ballSizeIndex = 20;
     }else if(this.startTime -50 <= position && this.endTime + 50 >= position){
       circleColor = p5.color(colorTone.phrase);
       textColor = p5.color(0);
       textSize = 20;
+    }else if(this.chord == 1 && this.endTime + 500 <= position){
+      circleColor = p5.color(colorTone.foresee);
+      textColor = p5.color(0);
     }else{
       circleColor = p5.color(colorTone.ball);
       textColor = p5.color('#65bfce');
@@ -121,7 +138,7 @@ export class Ball {
     }
     p5.noStroke();
     p5.fill(circleColor);
-    p5.ellipse(this.x, this.y, this.diameter, this.diameter);
+    p5.ellipse(this.x, this.y, this.diameter + ballSizeIndex, this.diameter + ballSizeIndex);
     p5.fill(textColor);
     p5.textSize(textSize);
     p5.text(this.text, this.x - textSize/2, this.y + textSize/3);

@@ -65,16 +65,16 @@ player.addListener({
 let demoforesee = 120;
 let balls = [];
 let ballCnt = 0;
-let injectX = 30;
+let injectX = 50;
 let soundFile;
 let clickedArr = [];
 let chordIndex = 0;
 
 let position = 0;
 
-const spliceGood = 120;
-const spliceNice = 180;
-const spliceJust = 320;
+const spliceGood = 140;
+const spliceNice = 200;
+const spliceJust = 280;
 let playerScore = 0;
 
 const sketch = (p5) => {
@@ -138,7 +138,7 @@ const sketch = (p5) => {
     p5.text('Score: ' + playerScore, width - 120, 20);
 
     position = player.timer.position;
-    let forePosition = position + 2000;
+    let forePosition = position + 3000;
     let char = player.video.findChar(forePosition, { loose: true });
     let phrase = player.video.findPhrase(forePosition, { loose: true });
     // let beat = player.findBeat(forePosition);
@@ -186,6 +186,7 @@ const sketch = (p5) => {
         ball.char.startTime - 800 <= position && ball.char.endTime + 300 >= position 
       ) {
         soundFile.play();
+        console.log(ball);
         ball.clicked = true;
         // Get user click timing
         let clickTiming = Math.abs(ball.char.startTime - position);
@@ -207,8 +208,7 @@ const sketch = (p5) => {
         balls.splice(balls.indexOf(ball), 1);
         for(let bi = 0; bi < ball.others.length; bi++){
           if(
-            Math.abs(ball.others[bi].x - ball.x) < 45+spliceTiming/2 &&
-            Math.abs(ball.others[bi].y - ball.y) < 45+spliceTiming/2 &&
+            p5.sqrt(p5.pow(Math.abs(ball.others[bi].x - ball.x), 2) + p5.pow(Math.abs(ball.others[bi].y - ball.y), 2)) < 45+spliceTiming/2 &&
             (ball.others[bi].chord == 0 || position - ball.others[bi].char.endTime > 0)
           ){
             nearBalls.push(ball.others[bi]);
@@ -248,14 +248,18 @@ const sketch = (p5) => {
 
 function clickAnimation(p5, clickedArr, position){
   p5.strokeWeight(4);
-  p5.stroke(51);
+  // p5.stroke(51);
   p5.fill(255,255,255, 0.2);
+  let effectColor = p5.stroke('rgba(0, 177, 204, 0.8)');
   clickedArr.forEach(ball => {
     let effectTime = position - ball.char.startTime;
     if(ball.spliceTiming >= spliceJust){
+      effectColor = p5.stroke('rgba(0, 48, 71, 0.8)');
       p5.ellipse(ball.x, ball.y, 10 + effectTime * 0.2, 10 + effectTime * 0.2);
+      p5.ellipse(ball.x, ball.y, 50 + effectTime * 0.2, 50 + effectTime * 0.2);
     }
-    if(ball.spliceTiming >= spliceNice){
+    else if(ball.spliceTiming >= spliceNice){
+      effectColor = p5.stroke('rgba(1, 105, 143, 0.8)');
       p5.ellipse(ball.x, ball.y, 50 + effectTime * 0.2, 50 + effectTime * 0.2);
     }
     p5.ellipse(ball.x, ball.y, 90 + effectTime * 0.2, 90 + effectTime * 0.2);
