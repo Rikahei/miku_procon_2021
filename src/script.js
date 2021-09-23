@@ -11,6 +11,7 @@ const player = new Player({
     appName: "p5.js example",
   },
     mediaElement: document.querySelector("#media"),
+    PlayerBannerPosition: 'top',
     valenceArousalEnabled: true,
 });
 player.addListener({
@@ -64,7 +65,7 @@ player.addListener({
 let demoforesee = 120;
 let balls = [];
 let ballCnt = 0;
-let injectX = 20;
+let injectX = 30;
 let soundFile;
 let clickedArr = [];
 let chordIndex = 0;
@@ -79,7 +80,7 @@ let playerScore = 0;
 const sketch = (p5) => {
   let width = p5.windowWidth - 20;
   let height = p5.windowHeight - 20;
-  let ballsMax = width < 768 ? 50 : 100;
+  let ballsMax = width < 768 ? 35 : 100;
   let lastIndex = 0;
 
   p5.preload = () => {
@@ -113,11 +114,11 @@ const sketch = (p5) => {
       p5.ellipse(width/2, height/2, 120, 120);
       p5.fill(0);
       let clickText = 26;
-      if(demoforesee < 20){
-        clickText = 38
+      if(demoforesee < 30){
+        clickText = 32
       }
       p5.textSize(clickText);
-      p5.text('Click!', width/2 - clickText - 5, height/2 + clickText/3)
+      p5.text('Start', width/2 - clickText, height/2 + clickText/3)
     }
 
     // The Play/Pause button
@@ -134,7 +135,7 @@ const sketch = (p5) => {
       balls.splice(0, ballsMax*0.15);
     }
     p5.textSize(20);
-    p5.text('Score: ' + playerScore, width - 150, 20);
+    p5.text('Score: ' + playerScore, width - 120, 20);
 
     position = player.timer.position;
     let forePosition = position + 2000;
@@ -171,7 +172,7 @@ const sketch = (p5) => {
       clickAnimation(p5, clickedArr, position);
     }
   }
-  p5.mousePressed = () => {
+  p5.mouseClicked = () => {
     // May change in mobile view
     let spliceTiming;
     let nearBalls = [];

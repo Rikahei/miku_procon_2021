@@ -1,15 +1,21 @@
 body {
-  cursor: pointer;
+  position: relative;
+  border: 2px solid #73AD21;
 }
 
 #media {
-  position: fixed;
-  left: 35%;
-  top: 0;
-  
+  position: absolute;
   background: #000c;
   color: #fff;
-  z-index: -1;
+  z-index: -10;
+  margin-left: 50%;
+  transform:translateX(-50%);
+  padding: 5px;
+  border: 5px solid #73AD21;
+}
+
+.textalive-banner{
+  z-index: -10;
 }
 
 #meta {
@@ -20,7 +26,6 @@ body {
   font-weight: normal;
 }
 
-#media {
-  margin: 0;
-  padding: 0;
+.textalive-banner{
+  display: none !important;
 }
