@@ -7,6 +7,7 @@ const colors = {
     click: 'rgba(220, 94, 145, 1)',
     siging: 'rgba(239, 196, 89, 0.7)',
     phrase: 'rgba(218, 247, 227, 0.7)',
+    pText: 'rgba(rgb(239, 196, 89)',
     ball: 'rgba(217, 248, 255, 0.7)'
   },
   default:{
@@ -14,6 +15,7 @@ const colors = {
     click: 'rgba(53, 203, 193, 0.7)',
     siging: 'rgba(53, 174, 201, 0.7)',
     phrase: 'rgba(250, 205, 75, 0.7)',
+    pText: 'rgb(255, 78, 106)',
     ball: 'rgba(255, 212, 213, 0.7)'
   },
   fast:{
@@ -21,6 +23,7 @@ const colors = {
     click: 'rgba(219, 60, 124, 0.7)',
     siging: 'rgba(140, 132, 213, 0.7)',
     phrase: 'rgba(67, 198, 193, 0.7)',
+    pText: 'rgba(rgb(239, 196, 89)',
     ball: 'rgba(253, 243, 246, 0.7)'
   }
 }
@@ -123,11 +126,11 @@ export class Ball {
       ballSizeIndex = 20;
     }else if(this.startTime -50 <= position && this.endTime + 50 >= position){
       circleColor = p5.color(colorTone.phrase);
-      textColor = p5.color(0);
+      textColor = p5.color(colorTone.pText);
       textSize = 20;
     }else if(this.chord == 1 && this.endTime + 500 <= position){
-      circleColor = p5.color(colorTone.foresee);
-      textColor = p5.color(0);
+      circleColor = p5.color('rgba(231, 231, 231, 0.7)');
+      textColor = p5.color('rgb(79, 79, 79)');
     }else{
       circleColor = p5.color(colorTone.ball);
       textColor = p5.color('#65bfce');

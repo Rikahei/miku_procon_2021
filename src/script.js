@@ -98,9 +98,10 @@ const sketch = (p5) => {
     }
     //Set frameRate and transparent
     p5.frameRate(60);
-    p5.clear();
-    p5.background('rgba(255,255,255, 0.5)');
     if(!gameStart && player.video && isVideoLoaded){
+      p5.clear();
+      p5.background('rgba(255,255,255, 0.8)');
+
       demoforesee -= 2;
       p5.stroke(1);
       p5.strokeWeight(1);
@@ -114,13 +115,15 @@ const sketch = (p5) => {
       p5.ellipse(width/2, height/2, 120, 120);
       p5.fill(0);
       let clickText = 26;
-      if(demoforesee < 30){
+      if(demoforesee < 20){
         clickText = 32
       }
       p5.textSize(clickText);
-      p5.text('Start', width/2 - clickText, height/2 + clickText/3)
+      p5.text('Start', width/2 - clickText, height/2 + clickText/3);
+      return;
     }
-
+    p5.clear();
+    p5.background('rgba(255,255,255, 0.5)');
     // The Play/Pause button
     p5.noStroke();
     p5.fill('#222222');
