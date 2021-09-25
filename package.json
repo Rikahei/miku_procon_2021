@@ -2,7 +2,7 @@
   "name": "procon_miku_2021",
   "private": true,
   "version": "1.0.0",
-  "description": "5p js",
+  "description": "p5.js work with textalive API",
   "main": "index.js",
   "scripts": {
     "dev": "parcel src/index.html --out-dir dev",

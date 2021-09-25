@@ -144,7 +144,6 @@ const sketch = (p5) => {
     let forePosition = position + 3000;
     let char = player.video.findChar(forePosition, { loose: true });
     let phrase = player.video.findPhrase(forePosition, { loose: true });
-    // let beat = player.findBeat(forePosition);
     let chord = player.findChord(forePosition);
     let charIndex = player.video.findIndex(char);
     if(char != null && player.isPlaying && lastIndex != charIndex){
@@ -176,9 +175,8 @@ const sketch = (p5) => {
     }
   }
   p5.mouseClicked = () => {
-    // May change in mobile view
+    // May change near ball area in mobile view
     let spliceTiming;
-    let nearBalls = [];
     balls.forEach((ball)=>{
       if (
         p5.mouseX > ball.x - ball.diameter/2 &&
@@ -189,7 +187,6 @@ const sketch = (p5) => {
         ball.char.startTime - 800 <= position && ball.char.endTime + 300 >= position 
       ) {
         soundFile.play();
-        console.log(ball);
         ball.clicked = true;
         // Get user click timing
         let clickTiming = Math.abs(ball.char.startTime - position);
@@ -209,22 +206,9 @@ const sketch = (p5) => {
         ball.spliceTiming = spliceTiming;
         clickedArr.push(ball);
         balls.splice(balls.indexOf(ball), 1);
-        for(let bi = 0; bi < ball.others.length; bi++){
-          if(
-            p5.sqrt(p5.pow(Math.abs(ball.others[bi].x - ball.x), 2) + p5.pow(Math.abs(ball.others[bi].y - ball.y), 2)) < 45+spliceTiming/2 &&
-            (ball.others[bi].chord == 0 || position - ball.others[bi].char.endTime > 0)
-          ){
-            nearBalls.push(ball.others[bi]);
-          }
-        };
-        for(let ni = 0; ni < nearBalls.length; ni++){
-          let ballIndex = balls.indexOf(nearBalls[ni]);
-          balls.splice(ballIndex, 1);
-        }
       }
     })
     // Play button
-    // TODO: mobile view have issue
     if(p5.mouseX > 10 &&
       p5.mouseX < 60 &&
       p5.mouseY > 10 &&
@@ -251,9 +235,9 @@ const sketch = (p5) => {
 
 function clickAnimation(p5, clickedArr, position){
   p5.strokeWeight(4);
-  // p5.stroke(51);
   p5.fill(255,255,255, 0.2);
   let effectColor = p5.stroke('rgba(0, 177, 204, 0.8)');
+  let nearBalls = [];
   clickedArr.forEach(ball => {
     let effectTime = position - ball.char.startTime;
     if(ball.spliceTiming >= spliceJust){
@@ -268,6 +252,18 @@ function clickAnimation(p5, clickedArr, position){
     p5.ellipse(ball.x, ball.y, 90 + effectTime * 0.2, 90 + effectTime * 0.2);
     if(90 + effectTime * 0.2 > ball.spliceTiming){
       clickedArr.splice(clickedArr.indexOf(ball), 1);
+    }
+    for(let bi = 0; bi < ball.others.length; bi++){
+      if(
+        p5.sqrt(p5.pow(Math.abs(ball.others[bi].x - ball.x), 2) + p5.pow(Math.abs(ball.others[bi].y - ball.y), 2)) < 45+effectTime*0.2 &&
+        (ball.others[bi].chord == 0 || position - ball.others[bi].char.endTime > 0)
+      ){
+        nearBalls.push(ball.others[bi]);
+      }
+    };
+    for(let ni = 0; ni < nearBalls.length; ni++){
+      let ballIndex = balls.indexOf(nearBalls[ni]);
+      balls.splice(ballIndex, 1);
     }
   });
 }

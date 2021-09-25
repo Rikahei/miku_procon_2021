@@ -40,7 +40,6 @@ export class Ball {
     this.char = char;
     this.startTime = phrase.startTime;
     this.endTime = phrase.endTime;
-    // '' because clear up function
     this.pos = char.parent.pos;
     this.chord = chord;
     this.clicked = false;
