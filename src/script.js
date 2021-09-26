@@ -171,7 +171,7 @@ const sketch = (p5) => {
       });
     }
     if(clickedArr.length > 0){
-      clickAnimation(p5, clickedArr, position);
+      clickEffect(p5, clickedArr, position);
     }
   }
   p5.mouseClicked = () => {
@@ -184,7 +184,7 @@ const sketch = (p5) => {
         p5.mouseY > ball.y - ball.diameter/2 &&
         p5.mouseY < ball.y + ball.diameter/2 &&
         ball.chord == 1 &&
-        ball.char.startTime - 800 <= position && ball.char.endTime + 300 >= position 
+        ball.char.startTime - 1000 <= position && ball.char.endTime + 100 >= position 
       ) {
         soundFile.play();
         ball.clicked = true;
@@ -233,11 +233,11 @@ const sketch = (p5) => {
   }
 }
 
-function clickAnimation(p5, clickedArr, position){
+function clickEffect(p5, clickedArr, position){
+  let nearBalls = [];
+  let effectColor = p5.stroke('rgba(0, 177, 204, 0.8)');
   p5.strokeWeight(4);
   p5.fill(255,255,255, 0.2);
-  let effectColor = p5.stroke('rgba(0, 177, 204, 0.8)');
-  let nearBalls = [];
   clickedArr.forEach(ball => {
     let effectTime = position - ball.char.startTime;
     if(ball.spliceTiming >= spliceJust){
@@ -250,6 +250,7 @@ function clickAnimation(p5, clickedArr, position){
       p5.ellipse(ball.x, ball.y, 50 + effectTime * 0.2, 50 + effectTime * 0.2);
     }
     p5.ellipse(ball.x, ball.y, 90 + effectTime * 0.2, 90 + effectTime * 0.2);
+    // Remove clicked ball
     if(90 + effectTime * 0.2 > ball.spliceTiming){
       clickedArr.splice(clickedArr.indexOf(ball), 1);
     }
