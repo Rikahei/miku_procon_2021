@@ -5,6 +5,8 @@ import { Ball } from './ball.js';
 let isVideoLoaded = false;
 let vaIndex = 4;
 let gameStart = false;
+let gameFinish = false;
+
 const player = new Player({
   app: {
     appAuthor: "TextAlive",
@@ -37,16 +39,31 @@ player.addListener({
     player.volume = 70;
     let va = player.getMedianValenceArousal();
     vaIndex = Math.round((va.v + va.a) * 10);
-    console.log(vaIndex);
   },
 
   onTimerReady: () => {
     isVideoLoaded = true;
+    let videoBorderColor = "5px solid rgba(115, 173, 33, 1)";
+    let borderColor = "2px solid rgba(255, 234, 0, 1)";
+    if(vaIndex > 4){
+      videoBorderColor = "5px solid rgba(53, 203, 193, 1)";
+      borderColor = "2px solid rgba(101, 191, 206, 1)";
+    }else if(vaIndex < 4){
+      videoBorderColor = "5px solid rgba(60, 97, 176, 1)";
+      borderColor = "2px solid rgba(123, 114, 224, 1)";
+    }
+    document.getElementById("media").style.border = videoBorderColor;
+    document.body.style.border = borderColor;
     console.log("player.onTimerReady");
   },
 
   onPlay: () => {
     console.log("player.onPlay");
+    if(gameStart && gameFinish){
+      gameFinish = false;
+      playerScore = 0;
+      balls = [];
+    }
   },
 
   onPause: () => {
@@ -59,6 +76,7 @@ player.addListener({
 
   onStop: () => {
     console.log("player.onStop");
+    gameFinish = true;
   }
 })
 
@@ -80,7 +98,7 @@ let playerScore = 0;
 const sketch = (p5) => {
   let width = p5.windowWidth - 20;
   let height = p5.windowHeight - 20;
-  let ballsMax = width < 768 ? 35 : 100;
+  let ballsMax = width < 768 ? 40 : 100;
   let lastIndex = 0;
 
   p5.preload = () => {
@@ -100,7 +118,7 @@ const sketch = (p5) => {
     p5.frameRate(60);
     if(!gameStart && player.video && isVideoLoaded){
       p5.clear();
-      p5.background('rgba(255,255,255, 0.8)');
+      p5.background('rgba(253,253,253, 0.8)');
 
       demoforesee -= 2;
       p5.stroke(1);
@@ -184,7 +202,7 @@ const sketch = (p5) => {
         p5.mouseY > ball.y - ball.diameter/2 &&
         p5.mouseY < ball.y + ball.diameter/2 &&
         ball.chord == 1 &&
-        ball.char.startTime - 1000 <= position && ball.char.endTime + 100 >= position 
+        ball.char.startTime - 1000 <= position && ball.char.endTime + 300 >= position 
       ) {
         soundFile.play();
         ball.clicked = true;

@@ -3,28 +3,31 @@ const gravity = 0.02;
 const friction = -0.3;
 const colors = {
   slow:{
-    foresee:'rgba(249, 225, 237, 0.7)',
-    click: 'rgba(220, 94, 145, 1)',
+    foresee:'rgba(249, 225, 237, 0.5)',
+    click: 'rgba(60, 97, 176, 0.9)',
     siging: 'rgba(239, 196, 89, 0.7)',
-    phrase: 'rgba(218, 247, 227, 0.7)',
-    pText: 'rgba(rgb(239, 196, 89)',
-    ball: 'rgba(217, 248, 255, 0.7)'
+    phrase: 'rgba(123, 114, 224, 0.7)',
+    pText: 'rgba(239, 196, 89)',
+    ball: 'rgba(233, 214, 255, 0.7)',
+    bText: 'rgb(79, 79, 79)'
   },
   default:{
     foresee:'rgba(127, 147, 105, 0.5)',
-    click: 'rgba(53, 203, 193, 0.7)',
+    click: 'rgba(53, 203, 193, 0.9)',
     siging: 'rgba(53, 174, 201, 0.7)',
     phrase: 'rgba(250, 205, 75, 0.7)',
     pText: 'rgb(255, 78, 106)',
-    ball: 'rgba(255, 212, 213, 0.7)'
+    ball: 'rgba(255, 212, 213, 0.7)',
+    bText: 'rgb(101, 191, 206)'
   },
   fast:{
     foresee:'rgba(127, 152, 190, 0.5)',
-    click: 'rgba(219, 60, 124, 0.7)',
+    click: 'rgba(219, 60, 124, 0.9)',
     siging: 'rgba(140, 132, 213, 0.7)',
     phrase: 'rgba(67, 198, 193, 0.7)',
-    pText: 'rgba(rgb(239, 196, 89)',
-    ball: 'rgba(253, 243, 246, 0.7)'
+    pText: 'rgba(239, 196, 89)',
+    ball: 'rgba(227, 244, 243, 0.7)',
+    bText: 'rgb(101, 191, 206)'
   }
 }
 export class Ball {
@@ -132,10 +135,10 @@ export class Ball {
       textColor = p5.color('rgb(79, 79, 79)');
     }else{
       circleColor = p5.color(colorTone.ball);
-      textColor = p5.color('#65bfce');
+      textColor = p5.color(colorTone.bText);
     }
     if(this.clicked){
-      circleColor = p5.color('#dd4a49');
+      circleColor = p5.color('red');
       textColor = p5.color('white');
     }
     p5.noStroke();

@@ -1,5 +1,5 @@
 # Source
-bubble-9.wav
+bubble-9.wav by Glaneur de sons
 https://freesound.org/people/Glaneur%20de%20sons/sounds/104948/
 
 # licenses
