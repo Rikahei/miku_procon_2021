@@ -1,8 +1,6 @@
 ## 初音ミク「マジカルミライ 2021」プログラミング・コンテスト
 
-初音ミク「マジカルミライ 2021」プログラミング・コンテストの応募作品です。
-
-### 作品名: バブルバス
+#### 作品名: バブルバス
 
 対象楽曲: [密かなる交信曲 - 濁茶 さん](https://rikahei.github.io/mm_procon_2021_production/?ta_song_url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DCh4RQPG1Tmo)
 
@@ -10,10 +8,10 @@
 
 推奨環境: Chrome
 
-### 作品のアピールポイント: 
+#### 作品のアピールポイント: 
 
-* TextAliveとP5.jsを利用して、カジュアルゲームです。
-* バブルは全体にぶつかります。
+* TextAliveとP5.jsを利用して、作成するカジュアルゲームです。
+* バブル全体をはずみます。
 * クリックタイミングはchorusに決定します。
 * クリックタイミングが合えば、近いバブルを消すことができます。
 * 消す範囲はクリックタイミングに影響します。
@@ -33,13 +31,21 @@ The design theme is `bath bubbles`
 * Click timing is according to music chorus
 * Color theme decided by ValenceArousal value
 
+![Screenshot](https://github.com/Rikahei/miku_procon_2021/blob/master/assets/demo_1.gif "click demo")
+
 [Demo song: 密かなる交信曲 - 濁茶 さん](https://rikahei.github.io/mm_procon_2021_production/?ta_song_url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DCh4RQPG1Tmo)
 
-# Song url
+[Demo song: 嘘も本当も君だから - 真島ゆろ さん](https://rikahei.github.io/mm_procon_2021_production/?ta_song_url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DSe89rQPp5tk)
+
+[Demo song: First Note - blues さん](https://rikahei.github.io/mm_procon_2021_production/)
+
+Recommend browser: Chrome
+
+#### Song url
 Place song url at `ta_song_url={song URL}` can access the song you like
 
 Supported song url can be find in [TextAlive API web page](https://textalive.jp/songs).
-## Develop environment setup
+#### Develop environment setup
 
 With node.js installed, run below commends to build dev environment in local.
 
@@ -64,7 +70,7 @@ For more details on the TextAlive App API, please visit the website [TextAlive f
 
 ## License
 
-### Sound effect
+#### Sound effect
 
 bubble-9.wav
 
@@ -72,6 +78,6 @@ https://freesound.org/people/Glaneur%20de%20sons/sounds/104948/
 
 Attribution 3.0 Unported (CC BY 3.0)
 
-### Sketch library
+#### Sketch library
 
 https://p5js.org/
