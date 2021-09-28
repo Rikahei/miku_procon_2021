@@ -72,7 +72,7 @@ For more details on the TextAlive App API, please visit the website [TextAlive f
 
 #### Sound effect
 
-bubble-9.wav
+bubble-9.wav by Glaneur de sons
 
 https://freesound.org/people/Glaneur%20de%20sons/sounds/104948/
 

@@ -192,8 +192,14 @@ const sketch = (p5) => {
       clickEffect(p5, clickedArr, position);
     }
   }
-  p5.mouseClicked = () => {
-    // May change near ball area in mobile view
+  p5.touchStarted = () => {
+    // Start the game
+    if(gameStart == false){
+      player.requestPlay();
+      gameStart = true;
+      
+      return false;
+    }
     let spliceTiming;
     balls.forEach((ball)=>{
       if (
@@ -238,11 +244,8 @@ const sketch = (p5) => {
           player.requestPlay();
         }
     }
-    // Start the game
-    if(!gameStart){
-      player.requestPlay();
-      gameStart = true;
-    }
+    // Prevent any default behavior for touchStart function
+    return false;
   }
   p5.windowResized = () => {
     width = p5.windowWidth - 20;
