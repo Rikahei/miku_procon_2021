@@ -194,10 +194,10 @@ const sketch = (p5) => {
   }
   p5.touchStarted = () => {
     // Start the game
+    // Because iPhone doesn't support mouseClicked
     if(gameStart == false){
-      player.requestPlay();
       gameStart = true;
-      
+      player.requestPlay();
       return false;
     }
     let spliceTiming;
@@ -246,6 +246,14 @@ const sketch = (p5) => {
     }
     // Prevent any default behavior for touchStart function
     return false;
+  }
+  // Chrome require user reaction to play video
+  p5.mousePressed = () => {
+    if(gameStart == false){
+      gameStart = true; 
+      player.requestPlay();
+      return false;
+    }
   }
   p5.windowResized = () => {
     width = p5.windowWidth - 20;
