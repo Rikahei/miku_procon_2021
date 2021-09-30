@@ -34,7 +34,9 @@ The design theme is `bath bubbles`
 * Compatible with some Android / iOS devices.
 
 ![Screenshot](https://github.com/Rikahei/miku_procon_2021/blob/master/assets/demo_1.gif "click demo")
+
 ![Screenshot](https://github.com/Rikahei/miku_procon_2021/blob/master/assets/demo_2.gif "mobile demo")
+![Screenshot](https://github.com/Rikahei/miku_procon_2021/blob/master/assets/demo_3.gif "bubble demo")
 
 [Demo song: 密かなる交信曲 - 濁茶 さん](https://rikahei.github.io/mm_procon_2021_production/?ta_song_url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DCh4RQPG1Tmo)
 
@@ -42,7 +44,7 @@ The design theme is `bath bubbles`
 
 [Demo song: First Note - blues さん](https://rikahei.github.io/mm_procon_2021_production/)
 
-Recommend browser: Chrome
+Recommend browser: Chrome Version 94.0.4606.61 (Official Build) (64-bit)
 
 #### Song url
 Place song url at `ta_song_url={song URL}` can access the song you like
@@ -56,6 +58,10 @@ With node.js installed, run below commends to build dev environment in local.
 npm install
 npm run dev
 ```
+
+! Recommend nodejs version v14.17.4, version 16 or later may cause build failure in my experience.
+
+! You may also reference for building dev environment [TextAlive API example](https://github.com/TextAliveJp/textalive-app-p5js).
 
 ## Build for production
 
