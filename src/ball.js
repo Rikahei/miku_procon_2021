@@ -110,7 +110,6 @@ export class Ball {
     let circleColor;
     let textColor = p5.color(150, 150, 150);
     let textSize = 16;
-    // TODO: find out why - 900 is work
     let foresee = (position - this.char.startTime) < 0 ? (position - this.char.startTime - 900)*0.2 : 0;
     if(this.char.startTime - 1000 <= position && this.char.endTime +100 >= position
       && this.chord == 1){
