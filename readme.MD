@@ -16,9 +16,7 @@
 * クリックタイミングが合えば、近いバブルを消すことができます。
 * 消す範囲はクリックタイミングに影響します。
 * テーマ色はValenceArousal値に決定します。
-```diff
-* ! 一部Android / iOSデバイスを対応します。
-```
+* 一部Android / iOSデバイスを対応します。
 
 ## About this app
 
@@ -33,9 +31,7 @@ The design theme is `bath bubbles`
 * Users are able to click the bubble and clean out near bubbles
 * Click timing is according to music chorus
 * Color theme decided by ValenceArousal value
-```diff
-* ! Compatible with some Android / iOS devices.
-```
+* Compatible with some Android / iOS devices.
 
 ![Screenshot](https://github.com/Rikahei/miku_procon_2021/blob/master/assets/demo_1.gif "click demo")
 ![Screenshot](https://github.com/Rikahei/miku_procon_2021/blob/master/assets/demo_2.gif "mobile demo")
