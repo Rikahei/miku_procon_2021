@@ -4,7 +4,7 @@
 
 対象楽曲: [密かなる交信曲 - 濁茶 さん](https://rikahei.github.io/mm_procon_2021_production/?ta_song_url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DCh4RQPG1Tmo)
 
-作品のプログラムは審査希望曲以外でも動作します
+作品のプログラムは審査希望曲以外でも動作します。
 
 推奨環境: Chrome
 
@@ -33,10 +33,16 @@ The design theme is `bath bubbles`
 * Color theme decided by ValenceArousal value
 * Compatible with some Android / iOS devices.
 
-![Screenshot](https://github.com/Rikahei/miku_procon_2021/blob/master/assets/demo_1.gif "click demo")
+<img src="https://github.com/Rikahei/miku_procon_2021/blob/master/assets/demo_1.gif">
 
-![Screenshot](https://github.com/Rikahei/miku_procon_2021/blob/master/assets/demo_2.gif "mobile demo")
-![Screenshot](https://github.com/Rikahei/miku_procon_2021/blob/master/assets/demo_3.gif "bubble demo")
+<img src="https://github.com/Rikahei/miku_procon_2021/blob/master/assets/demo_2.gif" height="337px"> <img src="https://github.com/Rikahei/miku_procon_2021/blob/master/assets/demo_3.gif">
+
+## Song url
+Place song url at `ta_song_url={song URL}` can access the song you like
+
+Supported song url can be find in [TextAlive API web page](https://textalive.jp/songs).
+
+:heavy_exclamation_mark: Recommend browser: Chrome Version 94.0.4606.61 (Official Build) (64-bit).
 
 [Demo song: 密かなる交信曲 - 濁茶 さん](https://rikahei.github.io/mm_procon_2021_production/?ta_song_url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DCh4RQPG1Tmo)
 
@@ -44,13 +50,7 @@ The design theme is `bath bubbles`
 
 [Demo song: First Note - blues さん](https://rikahei.github.io/mm_procon_2021_production/)
 
-Recommend browser: Chrome Version 94.0.4606.61 (Official Build) (64-bit)
-
-#### Song url
-Place song url at `ta_song_url={song URL}` can access the song you like
-
-Supported song url can be find in [TextAlive API web page](https://textalive.jp/songs).
-#### Develop environment setup
+## Develop environment setup
 
 With node.js installed, run below commends to build dev environment in local.
 
@@ -59,13 +59,13 @@ npm install
 npm run dev
 ```
 
-! Recommend nodejs version v14.17.4, version 16 or later may cause build failure in my experience.
+:heavy_exclamation_mark: Recommend nodejs version v14.17.4, version 16+ may cause build failure in my experience.
 
-! You may also reference for building dev environment [TextAlive API example](https://github.com/TextAliveJp/textalive-app-p5js).
+:heavy_exclamation_mark: You may also reference for building dev environment [TextAlive API example](https://github.com/TextAliveJp/textalive-app-p5js).
 
 ## Build for production
 
-Run below command can build production files at /docs
+Build production files at /docs
 
 ```sh
 npm run build
@@ -79,14 +79,14 @@ For more details on the TextAlive App API, please visit the website [TextAlive f
 
 ## License
 
-#### Sound effect
+### Sound effect
 
 bubble-9.wav by Glaneur de sons
 
 https://freesound.org/people/Glaneur%20de%20sons/sounds/104948/
 
-Attribution 3.0 Unported (CC BY 3.0)
+[Attribution 3.0 Unported (CC BY 3.0)](https://creativecommons.org/licenses/by/3.0/)
 
-#### Sketch library
+### Sketch library
 
 https://p5js.org/
