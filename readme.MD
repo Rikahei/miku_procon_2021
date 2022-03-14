@@ -21,7 +21,8 @@
 ## About this app
 
 This is a Web application for 初音ミク「マジカルミライ 2021」プログラミング・コンテスト.
-https://magicalmirai.com/2021/procon/
+
+https://developer.textalive.jp/events/magicalmirai2021/
 
 The AIM of this application is to use TextAlive API to build a relax & casual game.
 
