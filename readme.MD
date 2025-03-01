@@ -45,9 +45,9 @@ Supported song url can be find in [TextAlive API web page](https://textalive.jp/
 
 :heavy_exclamation_mark: Recommend browser: Chrome Version 94.0.4606.61 (Official Build) (64-bit).
 
-[Demo song: 密かなる交信曲 - 濁茶 さん](https://rikahei.github.io/miku_procon_2021/?ta_song_url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DCh4RQPG1Tmo)
+~~[Demo song: 密かなる交信曲 - 濁茶 さん](https://rikahei.github.io/miku_procon_2021/?ta_song_url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DCh4RQPG1Tmo)~~
 
-[Demo song: 嘘も本当も君だから - 真島ゆろ さん](https://rikahei.github.io/miku_procon_2021/?ta_song_url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DSe89rQPp5tk)
+~~[Demo song: 嘘も本当も君だから - 真島ゆろ さん](https://rikahei.github.io/miku_procon_2021/?ta_song_url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DSe89rQPp5tk)~~
 
 [Demo song: First Note - blues さん](https://rikahei.github.io/miku_procon_2021/)
 
